@@ -1,11 +1,11 @@
-import { getRekomendasiDestinasi } from '../controllers/survey.controller'
+import { CreateSurvey } from "../controllers/survey.controller.js";
 
-const rekomendasiRoutes = [
-{
-method: 'GET',
-path: '/rekomendasi/{userId}',
-handler: getRekomendasiDestinasi,
-},
-]
+const surveyRoutes = [
+  {
+    method: "POST",
+    path: "/survey",
+    handler: CreateSurvey,
+  },
+];
 
-export default rekomendasiRoutes
+export default surveyRoutes;

@@ -1,11 +1,12 @@
 {
   "name": "destinara-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "type": "module",
   "scripts": {
     "start": "node src/index.js",
-    "lint": "eslint ./"
+    "lint": "eslint ./",
+    "dev": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "",
@@ -14,12 +15,14 @@
   "dependencies": {
     "@hapi/hapi": "^21.4.0",
     "@prisma/client": "^6.8.2",
+    "@tensorflow/tfjs": "^4.22.0",
     "bcrypt": "^6.0.0",
     "dotenv": "^16.5.0",
     "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
     "eslint": "^9.27.0",
+    "nodemon": "^3.1.10",
     "prisma": "^6.8.2"
   }
 }
