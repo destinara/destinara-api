@@ -1,10 +1,14 @@
-import { CreateSurvey } from "../controllers/survey.controller.js";
+import { handleSurveyRecommendation } from "../controllers/survey.controller.js";
 
 const surveyRoutes = [
   {
     method: "POST",
     path: "/survey",
-    handler: CreateSurvey,
+    handler: handleSurveyRecommendation,
+    options: {
+      description: "Kirim survey aktifitas dan simpan hasil rekomendasi",
+      tags: ["api"],
+    },
   },
 ];
 
