@@ -8,35 +8,35 @@ datasource db {
 }
 
 model destinations {
-  id         Int      @id @default(autoincrement())
-  url_maps   String?
-  name       String?
-  rating     Decimal? @db.Decimal(12, 2)
-  tipe       String?
-  url_gambar String?
-  provinsi   String?
-  latitutde  Decimal? @db.Decimal(12, 2)
-  longtitude Decimal? @db.Decimal(12, 2)
-  kategori   String?
-  created_at DateTime @default(now()) @db.Timestamptz(6)
+  id            Int      @id @default(autoincrement())
+  name          String?
+  rating        Decimal? @db.Decimal(12, 2)
+  tipe          String?
+  url_gambar    String?  @map("url_gambar")
+  provinsi      String?
+  kategori      String?
+  created_at    DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  deskripsi     String?
+  jumlah_review Int?     @map("jumlah_review")
+  latitude      Decimal? @db.Decimal(12, 6)
+  longitude     Decimal? @db.Decimal(12, 6)
 }
 
 model kuliners {
   id         Int      @id @default(autoincrement())
-  judul      String?
   deskripsi  String?
-  gambar     String?
-  tipe       String?
   provinsi   String?
-  created_at DateTime @default(now()) @db.Timestamptz(6)
+  created_at DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  name       String?
+  url_gambar String?  @map("url_gambar")
 }
 
 model rekomendasi_destinasi {
   id         Int      @id @default(autoincrement())
   user_id    Int
+  created_at DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
   kategori   String
   score      Int?
-  created_at DateTime @default(now()) @db.Timestamptz(6)
   users      users    @relation(fields: [user_id], references: [id])
 }
 
@@ -44,8 +44,7 @@ model access_tokens {
   id        Int    @id @default(autoincrement())
   user_id   Int
   token_jwt String
-
-  users users @relation(fields: [user_id], references: [id])
+  users     users  @relation(fields: [user_id], references: [id])
 }
 
 model users {
@@ -55,8 +54,6 @@ model users {
   gender                String?
   password              String?
   created_at            DateTime                @default(now()) @db.Timestamptz(6)
-  rekomendasi_destinasi rekomendasi_destinasi[]
   access_tokens         access_tokens[]
+  rekomendasi_destinasi rekomendasi_destinasi[]
 }
-
-// npx prisma migrate dev --create-only --name add_access_tokens
