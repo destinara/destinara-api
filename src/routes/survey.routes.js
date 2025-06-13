@@ -5,10 +5,6 @@ const surveyRoutes = [
     method: "POST",
     path: "/survey",
     handler: handleSurveyRecommendation,
-    options: {
-      description: "Kirim survey aktifitas dan simpan hasil rekomendasi",
-      tags: ["api"],
-    },
   },
 ];
 
