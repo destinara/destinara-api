@@ -9,13 +9,11 @@ export const handleSurveyRecommendation = async (request, h) => {
   const authHeader = request.headers.authorization;
 
   console.log(authHeader);
+
+  console.log(authHeader);
   if (!authHeader) {
     return h
-      .response({
-        status: "false",
-        message: "Token tidak ditemukan",
-        data: [],
-      })
+      .response({ status: "false", message: "Token tidak ditemukan", data: [] })
       .code(401);
   }
 
@@ -26,11 +24,7 @@ export const handleSurveyRecommendation = async (request, h) => {
     user_id = decoded.id;
   } catch (err) {
     return h
-      .response({
-        status: "false",
-        message: "Token tidak valid",
-        data: [],
-      })
+      .response({ status: "false", message: "Token tidak valid", data: [] })
       .code(401);
   }
 
@@ -46,9 +40,16 @@ export const handleSurveyRecommendation = async (request, h) => {
 
   try {
     const response = await axios.post(
-      "http://13.236.52.219:8000/recommendation",
-      { user_survey: aktifitas },
-      { params: { max_recom, treshold } }
+      "https://destinasi.arialog.my.id/recommendation",
+      {
+        user_survey: aktifitas,
+      },
+      {
+        params: {
+          max_recom,
+          treshold,
+        },
+      }
     );
 
     const rekomendasiList = response.data?.data || [];

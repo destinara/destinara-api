@@ -21,7 +21,12 @@ export const getDestinationsByTipe = async (request, h) => {
     const result = await Promise.all(
       tipeArray.map(async (tipeItem) => {
         const destinations = await prisma.destinations.findMany({
-          where: { tipe: tipeItem },
+          where: {
+            tipe: {
+              contains: tipeItem,
+              mode: "insensitive",
+            },
+          },
           take: 4,
           orderBy: { rating: "desc" },
         });

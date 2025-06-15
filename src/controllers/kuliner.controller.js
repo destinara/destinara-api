@@ -7,7 +7,7 @@ export const getKuliners = async (request, h) => {
     const limit = parseInt(jumlah_data) || 10;
 
     const whereCondition = provinsi
-      ? { provinsi: { equals: provinsi, mode: "insensitive" } }
+      ? { provinsi: { contains: provinsi, mode: "insensitive" } }
       : {};
 
     const kuliners = await prisma.kuliners.findMany({
