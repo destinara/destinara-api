@@ -94,3 +94,65 @@ export const handleSurveyRecommendation = async (request, h) => {
       .code(500);
   }
 };
+
+export const getRekomendasiByUserId = async (request, h) => {
+  try {
+    const { id } = request.query;
+
+    if (!id) {
+      return h
+        .response({
+          status: "error",
+          message: "Parameter id diperlukan",
+        })
+        .code(400);
+    }
+
+    const userId = parseInt(id);
+    if (isNaN(userId)) {
+      return h
+        .response({
+          status: "error",
+          message: "ID harus berupa angka",
+        })
+        .code(400);
+    }
+
+    // Langsung ambil data rekomendasi tanpa cek user
+    const rekomendasi = await prisma.rekomendasi_destinasi.findMany({
+      where: { user_id: userId },
+      select: {
+        kategori: true, // Hanya ambil kolom kategori
+      },
+    });
+
+    if (rekomendasi.length === 0) {
+      return h
+        .response({
+          status: "success",
+          message:
+            "Belum ada rekomendasi untuk user ini silahkan survey terlebih dahulu",
+        })
+        .code(200);
+    }
+
+    // Ekstrak hanya nilai kategori ke dalam array
+    const kategoriList = rekomendasi.map((item) => item.kategori);
+
+    return h
+      .response({
+        status: "success",
+        message: "Data rekomendasi berhasil diambil",
+        data: kategoriList,
+      })
+      .code(200);
+  } catch (error) {
+    console.error("Error:", error);
+    return h
+      .response({
+        status: "error",
+        message: "Terjadi kesalahan server",
+      })
+      .code(500);
+  }
+};

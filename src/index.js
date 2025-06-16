@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/auth.routes.js";
 import surveyRoutes from "./routes/survey.routes.js";
 import destinationRoutes from "./routes/destination.routes.js";
-import kulinerRoutes from "./routes/kuliner.routes.js";
+import { kulinerRoutes } from "./routes/kuliner.routes.js";
 
 dotenv.config();
 console.log("Loaded SECRET_KEY:", process.env.SECRET_KEY);

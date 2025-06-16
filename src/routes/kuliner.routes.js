@@ -1,9 +1,17 @@
-import { getKuliners } from "../controllers/kuliner.controller.js";
+import {
+  getKuliners,
+  getKulinersBySlug,
+} from "../controllers/kuliner.controller.js";
 
-export default [
+export const kulinerRoutes = [
   {
     method: "GET",
     path: "/kuliners",
     handler: getKuliners,
+  },
+  {
+    method: "GET",
+    path: "/kuliners/{slug}",
+    handler: getKulinersBySlug,
   },
 ];

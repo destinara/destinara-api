@@ -1,10 +1,18 @@
-import { getDestinationsByTipe } from "../controllers/destination.controller.js";
+import {
+  getDestinationBySlug,
+  getDestinationsByTipe,
+} from "../controllers/destination.controller.js";
 
 const destinationRoutes = [
   {
     method: "GET",
-    path: "/destinations/by-tipe",
+    path: "/destinations",
     handler: getDestinationsByTipe,
+  },
+  {
+    method: "GET",
+    path: "/destinations/{slug}",
+    handler: getDestinationBySlug,
   },
 ];
 

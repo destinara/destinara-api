@@ -44,3 +44,53 @@ export const getKuliners = async (request, h) => {
       .code(500);
   }
 };
+
+export const getKulinersBySlug = async (request, h) => {
+  try {
+    const { slug } = request.params;
+
+    // Validasi slug
+    if (!slug) {
+      return h
+        .response({
+          status: "error",
+          message: "Parameter slug diperlukan",
+          data: null,
+        })
+        .code(400);
+    }
+
+    // Cari destinasi berdasarkan slug
+    const kuliner = await prisma.kuliners.findUnique({
+      where: { slug },
+    });
+
+    // Handle jika tidak ditemukan
+    if (!kuliner) {
+      return h
+        .response({
+          status: "false",
+          message: "Kuliner tidak ditemukan",
+          data: null,
+        })
+        .code(404);
+    }
+
+    return h
+      .response({
+        status: "success",
+        message: "Data kuliner berhasil diambil",
+        data: kuliner,
+      })
+      .code(200);
+  } catch (error) {
+    console.error("Error fetching kuliners:", error);
+    return h
+      .response({
+        status: "error",
+        message: "Gagal mengambil data kuliner",
+        data: [],
+      })
+      .code(500);
+  }
+};
